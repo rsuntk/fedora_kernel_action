@@ -14,9 +14,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Run a command in the Fedora container
+      - name: Build kernel source
         run: |
-          echo "Hello from Fedora container!"
-          dnf update -y
-          dnf install -y git
-          git --version
+          dnf update -y; dnf install -y git make gcc clang bc bison flex cpio openssl openssl-devel openssl-devel-engine rsync aria2 rpmbuild
+          git clone --depth=1 --single-branch -b master https://github.com/torvalds/linux.git; cd linux; echo "Linux version: $(make kernelversion)"
+          #cp ../rsuntk_defconfig; make rsuntk_defconfig -j4; make bzImage -j4; 
