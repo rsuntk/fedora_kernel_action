@@ -1,0 +1,22 @@
+name: Fedora Container
+
+on: workflow_dispatch
+
+jobs:
+  run-on-fedora:
+    runs-on: ubuntu-latest
+
+    container:
+      image: fedora:latest
+      options: --user root
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run a command in the Fedora container
+        run: |
+          echo "Hello from Fedora container!"
+          dnf update -y
+          dnf install -y git
+          git --version
